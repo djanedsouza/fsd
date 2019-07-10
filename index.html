@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="style.css"/>
     <title>New document</title>
 </head>
+<!--
 <body>
-    <!-- <h2>
+    <h2>
         Name : 
-    </h2> -->
+    </h2> 
     <script>
         //console.log("Using embedded javascript");
         //document.write("Using embedded javascript");
@@ -46,4 +47,50 @@
         <p>This is also a <span>paragraph</span></p>
     </div>
 </body>
+-->
+
+<!-- 
+    document object -> HTML elements
+    location object -> handles navigation 
+-->
+
+<body>
+
+    <div id="division">
+        <h1 id="heading" onmouseover="javascript: style = 'color: red'" onmouseout="javascript: style = 'color: black'">This is a heading</h1>
+    </div>
+
+    <button onclick="action();">Click Me</button>
+    <button onclick="javascript:location.reload();">Reload</button>
+    <button onclick="create();">Create</button>
+    <script>
+        function action()
+        {
+            /*
+            var element = document.getElementById("heading").innerText;
+            var element = document.getElementById("division").innerHTML;
+            alert(element);
+            */
+
+            /*
+            var head = "<h1>New Heading</h1>";
+            document.getElementById("division").innerHTML += head;
+            */
+
+            //document.getElementById("heading").innerText = "Hello World";
+        }
+
+        function create()
+        {
+            var a = document.getElementById("division");
+            var b = document.createElement("h1");
+            b.innerText = "This is another heading";
+            b.setAttribute("id","heading2");
+            b.style = "font-family:cursive;color:blue";
+            a.appendChild(b);
+        }
+    </script>
+
+</body>
+
 </html>

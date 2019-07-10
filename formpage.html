@@ -1,0 +1,26 @@
+<html>
+
+<body>
+
+    <h1 id="name">Entered name is : </h1>
+
+    
+        Enter name : 
+        <input type="text" id="txtName" value="" placeholder="Enter your name here..." oninput="retrieve()"/>
+
+        <button onclick="retrieve()">SUBMIT</button>
+
+   
+
+    <script>
+    function retrieve()
+    {
+        document.getElementById("name").innerText = document.getElementById("txtName").value;
+    }
+    </script>
+
+
+
+</body>
+
+</html>
