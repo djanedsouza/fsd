@@ -1,0 +1,95 @@
+<html>
+    <head><title>Parsing JSON</title></head>
+    <body>
+        <div id="division">
+
+            <table border="1">
+                <tr>
+                    <td>User Id</td>
+                    <td>ID</td>
+                    <td>Title</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td id="1"></td>
+                    <td id="2"></td>
+                    <td id="3"></td>
+                    <td id="4"></td>
+                </tr>
+            </table>
+
+        </div>
+
+        <button onclick="action();">Click Me</button>
+    </body>
+    <script>
+        function action()
+        {
+
+            //displaying on console
+            /*
+            fetch("https://jsonplaceholder.typicode.com/todos/1")
+            .then(result => result.json())
+            .then(result => console.log(result))
+            .catch(err => console.log(errr))
+            */
+
+            //displaying in div element
+            /*
+            var a = document.getElementById("division");
+            fetch("https://jsonplaceholder.typicode.com/todos/1")
+            .then(result => result.json())
+            //.then(result => {a.innerText = result}) //displays [object Object]
+            .then(result => {a.innerText = JSON.stringify(result)}) //converts JSON object to string
+            .catch(err => console.log(errr))
+            */
+
+            //displaying in table
+            /*
+            var uid = document.getElementById("1");
+            var id = document.getElementById("2");
+            var title = document.getElementById("3");
+            var completed = document.getElementById("4");
+            fetch("https://jsonplaceholder.typicode.com/todos/1")
+            .then(result => result.json())
+            .then(result => {
+                uid.innerText = result.userId;
+                id.innerText = result.id;
+                title.innerText = result.title;
+                completed.innerText = result.completed;
+            })
+            .catch(err => console.log(errr));
+            */
+
+            //setting fetch parameters
+
+            var uid = document.getElementById("1");
+            var id = document.getElementById("2");
+            var title = document.getElementById("3");
+            var completed = document.getElementById("4");
+            fetch("https://jsonplaceholder.typicode.com/todos/1",{
+                method: "GET", //POST doesn't fetch the data from server/specified URL
+                headers: {
+                    'Accept': 'application/json',
+                    'x-auth-token': 'jane'
+
+                    /*
+                    method: "POST", //Using POST to send some data to body
+                body: {
+                    username: 'username',
+                    password: 'password'
+                    */
+                }
+            })
+            .then(result => result.json())
+            .then(result => {
+                uid.innerText = result.userId;
+                id.innerText = result.id;
+                title.innerText = result.title;
+                completed.innerText = result.completed;
+            })
+            .catch(err => console.log(errr));
+            
+        }
+    </script>
+</html>

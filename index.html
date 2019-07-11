@@ -56,6 +56,25 @@
 
 <body>
 
+    <style>
+        h1{
+            border: 1px solid black;
+            width: 100%;
+        }
+        @media screen and (max-width: 1200px)
+        {
+            h1{
+                width: 50%;
+            }
+        }
+        @media screen and (max-width: 9000px)
+        {
+            h1{
+                width: 75%;
+            }
+        }
+    </style>
+
     <div id="division">
         <h1 id="heading" onmouseover="javascript: style = 'color: red'" onmouseout="javascript: style = 'color: black'">This is a heading</h1>
     </div>
