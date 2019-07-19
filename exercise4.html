@@ -1,0 +1,29 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        
+
+        <img src="" width="250px" id="img1"/>
+        <br>
+        <input type="file" onchange="download(event)"/>
+
+        <button onclick="download(event)">Download</button>
+        <script>
+        function download(event)
+        {
+            const reader = new FileReader();
+
+            reader.onloadend = event => {
+                document.insertBefore("input") = reader.result;
+            }
+
+            reader.onerror = event => console.log(event);
+
+            reader.readAsDataURL(event.target.files[0]);
+        }
+        </script>
+    </body>
+</html>

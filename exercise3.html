@@ -1,0 +1,48 @@
+<html>
+    <head><title>Using fetch</title></head>
+    <style>
+    button{
+        
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: bolder;
+    }
+    .forreload{
+        background-color: orangered;
+        color: white;
+    }
+    .forclick{
+        background-color: green;
+        color: white;
+    }
+    </style>
+
+    <body>
+        <center>
+        <h1>Changing images using fetch</h1>
+        <img id="img1" src="https://www.w3schools.com/html/pic_trulli.jpg" height="400" width="400">
+        <br><br>
+        <button onclick="action();" class="forclick">Change Image</button>
+        <button onclick="location.reload()" class="forreload">Reload</button>
+        </center>
+    </body>
+    <script>
+        function action()
+        {
+
+            //displaying in img element
+            
+            var a = document.getElementById("img1");
+            fetch("https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg")
+            .then(result => result.url)
+            .then(result => {a.src = result })
+            .catch(err => console.log(errr))
+            
+
+        }
+
+    </script>
+</html>

@@ -1,0 +1,65 @@
+<html>
+    <head></head>
+    <body>
+        <!-- <form action="/submit" method="POST" enctype="application/x-www-form-urlencoded">
+            <input type="text" name="txtName" placeholder="Enter your name..."/>
+            <input type="email" name="txtEmail" placeholder="Enter your email..."/>
+            <input type="password" name="txtPassword" placeholder="Enter your password..."/>
+            <input type="submit"/>
+        </form> -->
+
+        <h2>TODO app</h2>
+
+        <input type="text" id="newItem" placeholder="Enter new task here..."/>
+        <button onclick="addItem();">Add Item</button>
+        <button onclick="deleteItem();">Delete Item</button>
+        <button onclick="getItems();">Get All Items</button>
+        <script>
+            function getItems()
+            {
+                fetch("/get")
+                .then(data => data.json())
+                .then(data => console.log(data))
+                .catch(error => console.error);
+            }
+            function addItem()
+            {
+                //const item = document.getElementById("newItem").value.trim;
+                /*
+                const newitem = [];
+                newitem.push(document.getElementById("newItem").value.trim());
+                */
+                const newitem = document.getElementById("newItem").value.trim();
+                fetch("/add", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        item: newitem
+                    })
+                })
+                .then(data => data.status)
+                .then(data => console.log(data))
+                .catch(error => console.error);
+            }
+            function deleteItem()
+            {
+                const newitem = document.getElementById("newItem").value.trim();
+                fetch("/delete", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        item: newitem
+                    })
+                })
+                .then(data => data.status)
+                .then(data => console.log(data))
+                .catch(error => console.error);
+            }
+        </script>
+
+    </body>
+</html>

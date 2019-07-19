@@ -1,0 +1,210 @@
+<html>
+    <head></head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <body>
+
+        <style>
+        .material-icons{
+            cursor: pointer;
+            font-size: 20px; 
+        }
+        .material-icons:hover{
+            color: rgba(64, 6, 173);
+        }
+        .heading{
+            font-family:sans-serif;
+        }
+        input {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            }
+            input:hover {
+                border-block-color: black;
+                border-width: 2px;
+            }
+            li
+                {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            border-left-color: rgba(64, 6, 173);
+            border-left-width: 10px;
+            }
+            .iconstyle
+            {
+                
+                float: right;
+            }
+            #time{
+               
+                float: right;
+            }
+            .topdiv{
+                background-color: rgb(64, 6, 173);
+                color: white;
+
+                width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            }
+        </style>
+
+        <!-- <form action="/submit" method="POST" enctype="application/x-www-form-urlencoded">
+            <input type="text" name="txtName" placeholder="Enter your name..."/>
+            <input type="email" name="txtEmail" placeholder="Enter your email..."/>
+            <input type="password" name="txtPassword" placeholder="Enter your password..."/>
+            <input type="submit"/>
+        </form> -->
+        <div class="topdiv">
+        <h2 class="heading">Your Tasks<span id="time"></span></h2>
+
+        <input type="text" id="newItem" placeholder="Enter new task here..." onkeyup="addItem(event)" />
+        </div>
+
+        <div id="item-list"></div>
+        <script>
+            getItems();
+
+            /*
+            function display(data)
+            {
+                let temp = "";
+                for(let i=0; i < data.length; i++)
+                    temp += `<li>${data[i]}<span class="iconstyle"><i class="material-icons" onclick="editItem('${data[i]}')">edit</i><i class="material-icons" onclick="deleteItem('${data[i]}')">delete</i></span></li>`;
+
+                temp = `<ol>${temp}</ol>`;
+                document.getElementById("item-list").innerHTML = temp;
+            }
+            */
+
+            function display(data)
+            {
+                let temp = "";
+                for(let i=0; i < data.length; i++)
+                    temp += `<li>${data[i].item}<span class="iconstyle"><i class="material-icons" onclick="editItem('${data[i].item}')">edit</i><i class="material-icons" onclick="deleteItem('${data[i].item}')">delete</i></span></li>`;
+
+                temp = `<ol>${temp}</ol>`;
+                document.getElementById("item-list").innerHTML = temp;
+            }
+
+            function getItems()
+            {
+                fetch("/get")
+                .then(data => data.json())
+                .then(data => {display(data.items); })
+                .catch(error => console.error);
+            }
+            function addItem(event)
+            {
+
+                if(event.key === "Enter")
+                {
+
+                //const item = document.getElementById("newItem").value.trim;
+                /*
+                const newitem = [];
+                newitem.push(document.getElementById("newItem").value.trim());
+                */
+
+                
+                const newitem = document.getElementById("newItem").value.trim();
+                fetch("/add", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        item: newitem
+                    })
+                })
+                .then(data => data.status)
+                .then(data => {
+                    getItems();
+                    document.getElementById("newItem").value = "";
+                     })
+                .catch(error => console.error);
+                
+                    }
+            }
+            function deleteItem(item)
+            {
+
+                /*
+                const newitem = document.getElementById("newItem").value.trim();
+                fetch("/delete", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        item: newitem
+                    })
+                })
+                .then(data => data.status)
+                .then(data => {
+                    getItems(); 
+                    document.getElementById("newItem").value = "";
+                })
+                .catch(error => console.error);
+                */
+                if(confirm("Are you sure you want to delete task '" + item + "'"))
+                {
+                fetch("/delete", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        item: item
+                    })
+                })
+                .then(data => data.status)
+                .then(data => {
+                    getItems(); 
+                    document.getElementById("newItem").value = "";
+                })
+                .catch(error => console.error);
+            }
+
+            }
+            function editItem(item)
+            {
+                const newItem = prompt("Edit task : ", item);
+                
+            fetch("/edit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        olditem: item,
+                        newitem: newItem
+                    })
+                })
+                .then(data => data.status)
+                .then(data => {
+                    getItems(); 
+                })
+                .catch(error => console.error);
+                
+            }
+        
+    setInterval(function() {
+    document.getElementById("time").innerText = new Date().toLocaleTimeString();
+}, 1000);
+    
+
+        </script>
+
+    </body>
+</html>

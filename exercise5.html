@@ -1,0 +1,31 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        
+
+        <img src="" width="250px" id="img1"/>
+        <br>
+        <input type="text" id="txturl" placeholder="Paste image URL here..."/>
+
+        <button onclick="download()">Download</button>
+        <script>
+        function download()
+        {
+            const fetchurl = document.getElementById("txturl").value;
+            fetch(fetchurl)
+            .then(data => data.blob())
+            .then(data => {
+                console.log(data);
+                const image = document.getElementById("img1");
+                const url = URL.createObjectURL(data);
+                console.log(url);
+                image.setAttribute("src", url);
+             })
+            .catch(err => console.log(errr))
+        }
+        </script>
+    </body>
+</html>

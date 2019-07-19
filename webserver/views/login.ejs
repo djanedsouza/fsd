@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <h1><%= name %> Page Works</h1>
+
+        <% data.forEach((person, index) => { %>
+        <div>
+            <span>Name : <%= person.name %></span> 
+            <br>
+            <span>Phone : <%= person.phone %></span>
+            <br>
+            <span>Address : <%= person.address %></span>
+        </div>
+        <br>
+        <% }) %>
+
+    </body>
+</html>
